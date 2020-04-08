@@ -1,0 +1,13 @@
+region: us-east-1
+
+artifactPath: build/libs/it-ticketing-system-request-authorizer-1.0-SNAPSHOT.jar
+
+memorySize: 256
+
+timeout: 30
+
+deploymentBucketName: ntwhitfi-serverless-deployment-bucket
+
+userPoolId: us-east-1_yvdneKetW
+
+lambdaRole: arn:aws:iam::380986832728:role/TicketingSystemRequestAuthorizerRole-dev

@@ -1,0 +1,17 @@
+region: us-east-1
+
+artifactPath: build/libs/it-ticketing-system-auth-1.0-SNAPSHOT.jar
+
+memorySize: 256
+
+timeout: 30
+
+deploymentBucketName: ntwhitfi-serverless-deployment-bucket
+
+cognitoClientId: 292kao9of15111kihdsoc7kpqk
+
+userPoolId: us-east-1_yvdneKetW
+
+lambdaRole: arn:aws:iam::380986832728:role/TicketingSystemAuthRole-dev
+
+lambdaAuthorizer: arn:aws:lambda:us-east-1:380986832728:function:TicketingSystemRequestAuthorizerHandler-dev

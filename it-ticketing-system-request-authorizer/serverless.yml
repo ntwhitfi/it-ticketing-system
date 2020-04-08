@@ -1,0 +1,32 @@
+app: it-ticketing-system
+
+service:
+  name: it-ticketing-system-request-authorizer
+  description: |
+    This service is used to authorizer requests to the it-ticketing-system functions
+
+frameworkVersion: ">=1.9.0 <2.0.0"
+
+custom:
+  props: ${file(env_config/env_${opt:stage, self:provider.stage}.yml)}
+
+package:
+  artifact: ${self:custom.props.artifactPath}
+
+provider:
+  name: aws
+  runtime: java8
+  stage: dev
+  region: ${self:custom.props.region}
+  memorySize: ${self:custom.props.memorySize}
+  timeout: ${self:custom.props.timeout}
+  deploymentBucket: ${self:custom.props.deploymentBucketName}
+  role: ${self:custom.props.lambdaRole}
+
+functions:
+  TicketingSystemRequestAuthorizerHandler:
+    handler: com.ntwhitfi.it.ticketing.system.request.authorizer.handler.RequestAuthorizerHandler
+    name: TicketingSystemRequestAuthorizerHandler-${opt:stage, self:provider.stage}
+    environment:
+      USER_POOL_ID: ${self:custom.props.userPoolId}
+      REGION: ${self:custom.props.region}

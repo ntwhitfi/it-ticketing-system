@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Creates IAM role used for the IT Ticketing System Request Authorizer
+Parameters:
+  Author:
+    Description: Author's name
+    Type: String
+    Default: ntwhitfi
+    MinLength: 2
+    MaxLength: 30
+  Environment:
+    Description: dev, stg, prd, etc...
+    Type: String
+    Default: dev
+    MinLength: 2
+    MaxLength: 30
+Resources:
+  TicketingSystemRequestAuthorizerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join [ '', [ 'TicketingSystemRequestAuthorizerRole-', !Ref Environment ] ]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+
+Outputs:
+  TicketingSystemRequestAuthorizerRoleARN:
+    Description: The ARN of the TicketingSystemRequestAuthorizerRole
+    Value: !GetAtt TicketingSystemRequestAuthorizerRole.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-TicketingSystemRequestAuthorizerRoleARN
